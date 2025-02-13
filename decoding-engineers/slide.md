@@ -112,7 +112,6 @@ author: "Tushar"
 
 <!-- end_slide -->
 
-
 📡  **API** vs **WebSocket** vs **SSE**
 <!-- newlines: 2 -->
 <!-- pause -->
@@ -172,6 +171,7 @@ author: "Tushar"
 - Use Case: Storing user session, heavy calculations, etc.  
 
 <!-- end_slide -->
+
 🧩 **Objects & Instances**
 <!-- newlines: 2 -->
 <!-- pause -->
@@ -220,6 +220,7 @@ How the data is stored in database (SQL)
 | 103     | 2                   |
 
 <!-- end_slide -->
+
 🤔 **Questions?**
 <!-- newline -->
 <!-- pause -->
@@ -230,16 +231,15 @@ How the data is stored in database (SQL)
     {
       "name": "iPhone 16 Pro Max",
       "price": 1499.99,
-      "description": "The latest iPhone with a 12MP camera and 5G support"
+      "description": "iPhone with a 20MP camera and 5G support"
     },
     {
       "name": "AirPods Pro",
       "price": 449.99,
-      "description": "The best wireless earbuds with active noise cancellation"
+      "description": "Wireless earbuds with active noise cancellation"
     }
   ],
-  "first_name": "John",
-  "last_name": "Wick",
+  "name": "John",
   "email": "john@wick.com",
   "phone": "555-123-4567",
   "payment method": "gold_coin",
@@ -249,6 +249,84 @@ How the data is stored in database (SQL)
 -> What is that, Is it written correctly ⁉️
 <!-- pause -->
 -> Can you imagine how this would be stored in the **Database** ⁉️
+
+<!-- end_slide -->
+
+**Database Schema**
+<!-- newline -->
+Table: Users
+| Column Name     | Data Type     | Description                       |
+|-----------------|---------------|-----------------------------------|
+| id              | INT           | Primary Key, Auto Increment       |
+| name            | VARCHAR(50)   | Name of the user                  |
+| email           | VARCHAR(250)  | Email for the user                |
+| phone_number    | VARCHAR(20)   | Phone number for the user         |
+<!-- pause -->
+Table: Products
+| Column Name     | Data Type     | Description                       |
+|-----------------|---------------|-----------------------------------|
+| id              | INT           | Primary Key, Auto Increment       |
+| name            | VARCHAR(100)  | Name of the product               |
+| price           | DECIMAL(10,2) | Price of the product              |
+| description     | TEXT          | Description of the product        |
+<!-- pause -->
+Table: Orders
+| Column Name     | Data Type     | Description                       |
+|-----------------|---------------|-----------------------------------|
+| id              | INT           | Primary Key, Auto Increment       |
+| date            | DATE          | Date of the order                 |
+| payment_method  | VARCHAR(50)   | Payment method used               |
+
+<!-- end_slide -->
+
+**Database Schema**
+<!-- newline -->
+Table: Order_Items
+| Column Name     | Data Type     | Description                       |
+|-----------------|---------------|-----------------------------------|
+| id              | INT           | Primary Key, Auto Increment       |
+| order_id        | INT           | Foreign Key referencing `Orders`  |
+| product_id      | INT           | Foreign Key referencing `Products`|
+<!-- pause -->
+Table: Order_Users
+| Column Name     | Data Type     | Description                       |
+|-----------------|---------------|-----------------------------------|
+| id              | INT           | Primary Key, Auto Increment       |
+| order_id        | INT           | Foreign Key referencing `Orders`  |
+| user_id         | INT           | Foreign Key referencing `Users`   |
+
+<!-- end_slide -->
+
+**Example**
+<!-- newline -->
+Table: Users
+| id  | name       | email          | phone_number  |
+|-----|------------|----------------|---------------|
+| 1   | John Wick  | john@wick.com  | 555-123-4567  |
+<!-- pause -->
+Table: Products
+| id  | name               | price    | description                                       |
+|-----|--------------------|----------|---------------------------------------------------|
+| 1   | iPhone 16 Pro Max  | 1499.99  | iPhone with a 20MP camera and 5G support          |
+| 2   | AirPods Pro        | 449.99   | Wireless earbuds with active noise cancellation   |
+<!-- pause -->
+Table: Orders
+| id  | date       | payment_method |
+|-----|------------|----------------|
+| 1   | 2025-02-12 | gold_coin      |
+<!-- pause -->
+<!-- column_layout: [1, 1] -->
+<!-- column: 0 -->
+Table: Order_Items
+| id  | order_id  | product_id  |
+|-----|-----------|-------------|
+| 1   | 1         | 1           |
+| 2   | 1         | 2           |
+<!-- column: 1 -->
+Table: Order_Users
+| id  | order_id  | user_id |
+|-----|-----------|---------|
+| 1   | 1         | 1       |
 
 <!-- end_slide -->
 
